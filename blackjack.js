@@ -57,8 +57,8 @@ Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards, shuffle_c
   // split the cards array into two arrays
   var num_of_cards = cards.length;
 
-  var halves.push(arrayName.splice(0 , Math.ceil(num_of_cards / 2)));
-  var halves.push(cards);
+  halves.push(arrayName.splice(0 , Math.ceil(num_of_cards / 2)));
+  halves.push(cards);
 
   while (new_cards.length <= num_of_cards) {
     let rand = Math.floor(Math.random() * 2);
