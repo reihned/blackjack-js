@@ -39,14 +39,21 @@ not to scale
  - Starts one round of blackjack
  - Deals the cards to the player and dealer
    - only one card revealed for dealer
-> - Draw
- - Player draws a card
+> - Hit
+ - Player is dealt a card into their active hand
    - check for bust
 > - Split
   - only available if player has two of the same value card
   - allows player to play two hands instead by splitting one hand into two
+  - This should make the left most hand the active hand
+  -  In the case of more than one hand:
+    - when a player stands on the active hand it should move on to the next one.
 > - Stand
   - stops the player's turn and allows the dealer to automatically process their hand
 > - Bust
  - If a player's or dealer's hand value goes over 21, they lose (bust)
  - Ace value should automatically go down to 1 if 11 will bust
+
+#### Dealer Settings
+
+> Dealer should stand on any value >16
