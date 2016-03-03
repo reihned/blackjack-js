@@ -50,7 +50,7 @@ Blackjack.deck.yates_shuffle = function(cards = Blackjack.deck.cards){
   return cards;
 };
 
-Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards){
+Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards, shuffle_count = 1){
   // temporary array
   var new_cards = [];
   var halves = []
@@ -60,7 +60,12 @@ Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards){
   var halves.push(arrayName.splice(0 , Math.ceil(num_of_cards / 2)));
   var halves.push(cards);
 
-  while (new_cards.length < num_of_cards) {
+  while (new_cards.length <= num_of_cards) {
+    let rand = Math.floor(Math.random() * 2);
+    let flipflop = num_of_cards % 2; // yeaaaaah maaaattthh!!!!
 
+    for (var i = 0; i < rand; i++) {
+      new_cards.push(halves[flipflop].pop());
+    }//for
   }
 };
