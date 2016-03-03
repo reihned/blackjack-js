@@ -1,7 +1,3 @@
-function yates_shuffle(a) {
-
-}// shuffle
-
 var Blackjack = Blackjack || {};
 
 // lets build this out with potential rule changes in mind.
@@ -9,7 +5,7 @@ var Blackjack = Blackjack || {};
 Blackjack.deck.suites = [ "diamonds", "clubs", "hearts", "spades"];
 Blackjack.deck.ranks = [ "ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king" ];
 
-Blackjack.deck.setup = function( deck_count = 1 ){
+Blackjack.deck.setup = function(deck_count = 1){
 
   Blackjack.deck.cards = Blackjack.deck.cards || [];
   var cards = Blackjack.deck.cards
@@ -42,7 +38,7 @@ Blackjack.deck.setup = function( deck_count = 1 ){
   return cards;
 };// deck setup
 
-Blackjack.deck.yates_shuffle = function( cards = Blackjack.deck.cards ){
+Blackjack.deck.yates_shuffle = function(cards = Blackjack.deck.cards){
   //cards should be an array
   for (var count = cards.length; count; count--) {
       let index = count - 1;
@@ -54,6 +50,17 @@ Blackjack.deck.yates_shuffle = function( cards = Blackjack.deck.cards ){
   return cards;
 };
 
-Blackjack.deck.riffle_shuffle = function( cards = Blackjack.deck.cards ){
-  //split the cards in two
+Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards){
+  // temporary array
+  var new_cards = [];
+  var halves = []
+  // split the cards array into two arrays
+  var num_of_cards = cards.length;
+
+  var halves.push(arrayName.splice(0 , Math.ceil(num_of_cards / 2)));
+  var halves.push(cards);
+
+  while (new_cards.length < num_of_cards) {
+
+  }
 };
