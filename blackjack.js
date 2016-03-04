@@ -2,7 +2,7 @@ var Blackjack = Blackjack || {};
 
 // lets build this out with potential rule changes in mind.
 
-Blackjack.deck = {}; //why do I need to set this up?
+Blackjack.deck = {};
 Blackjack.deck.suites = [ "diamonds", "clubs", "hearts", "spades"];
 Blackjack.deck.ranks = [ "ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king" ];
 
@@ -19,11 +19,16 @@ Blackjack.deck.setup = function(deck_count = 1){
         var rank = Blackjack.deck.ranks[rank_index];
         var card = {};
 
-        card.name = suite + "_of_", + rank;
+        card.name = rank + "_of_" + suite;
         card.img_src = "svg-cards/" + card.name + ".svg";
 
         // array in case of other possible values
-        var values = [rank_index+1];
+        var values = [];
+        if( rank_index < 10 ){
+            values.push(rank_index+1)
+        }else{
+            values.push(10);
+        }
 
         // special 1 or 11 rule
         if (rank == "ace") {
