@@ -61,17 +61,25 @@ Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards, shuffle_c
   var new_cards = [];
   var halves = []
   // split the cards array into two arrays
-  var num_of_cards = cards.length;
+  // var num_of_cards = cards.length;
+  var num_of_cards = Blackjack.deck.suites.length * Blackjack.deck.ranks * shuffle_count;
 
-  halves.push(arrayName.splice(0 , Math.ceil(num_of_cards / 2)));
+  halves.push(cards.splice(0 , Math.ceil(num_of_cards / 2)));
   halves.push(cards);
 
   while (new_cards.length <= num_of_cards) {
-    let rand = Math.floor(Math.random() * 2);
-    let flipflop = num_of_cards % 2; // yeaaaaah maaaattthh!!!!
-
+    var rand = Math.floor(Math.random() * 2);
+    var flipflop = new_cards.length % 2; // yeaaaaah maaaattthh!!!!
+    // this isnt efficient??
     for (var i = 0; i < rand; i++) {
-      new_cards.push(halves[flipflop].pop());
+      if(halves[flipflop].length > 0){
+        let card = halves[flipflop].pop();
+        console.log(card);
+        new_cards.push(card);
+      }
     }//for
   }
+
+  cards = new_cards;
+  return cards;
 };
