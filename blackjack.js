@@ -64,7 +64,7 @@ Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards, shuffle_c
   // var num_of_cards = cards.length;
   var num_of_cards = Blackjack.deck.suites.length * Blackjack.deck.ranks.length * shuffle_count;
 
-  halves.push(cards.splice(0 , Math.ceil(num_of_cards / 2)));
+  halves.push(cards.splice(0 , Math.floor(num_of_cards / 2)));
   halves.push(cards);
 
   var count = 0;
@@ -72,7 +72,7 @@ Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards, shuffle_c
     var rand = Math.floor(Math.random() * 2);
     var flipflop = count % 2; // yeaaaaah maaaattthh!!!!
 
-    if(halves[flipflop]){
+    if( halves[flipflop] !== 0 ){
       for (var i = rand; i > 0; i--) {
         let card = halves[flipflop].pop();
         new_cards.push(card);
