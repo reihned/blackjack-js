@@ -45,6 +45,8 @@ Cards.prototype = {
   }// deck setup
 };
 
+// http://cs.stackexchange.com/questions/332/in-place-algorithm-for-interleaving-an-array/
+// http://stackoverflow.com/questions/1777901/array-interleaving-problem
 // Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards, shuffle_count = 1){
 //   // temporary array
 //   var new_cards = [];
