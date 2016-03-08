@@ -45,10 +45,6 @@ Cards.prototype = {
   }// deck setup
 };
 
-
-
-
-
 // Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards, shuffle_count = 1){
 //   // temporary array
 //   var new_cards = [];

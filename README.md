@@ -57,3 +57,7 @@ not to scale
 #### Dealer Settings
 
 > Dealer should stand on any value >16
+
+#### Etc.
+
+Card Counting?
