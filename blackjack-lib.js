@@ -1,13 +1,16 @@
-// define the GameObject constructor function
+// globals?? is there an alternative?
+var Suites = [ "diamonds", "clubs", "hearts", "spades"];
+var Ranks = [ "ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king" ]
+
 var Cards = function() {
-    this.suites = [ "diamonds", "clubs", "hearts", "spades"];
-    this.ranks = [ "ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king" ];
+    this.suites = Suites;
+    this.ranks = Ranks;
     return this;
 };
 
 Cards.prototype = {
-  suites: [ "diamonds", "clubs", "hearts", "spades"],
-  ranks:  [ "ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king" ],
+  suites: Suites,
+  ranks:  Ranks,
   yates_shuffle:  function(cards){
     //cards should be an array
     for (var count = cards.length; count; count--) {
@@ -84,6 +87,13 @@ Blackjack.deck = Blackjack.cards.new_deck();
 Blackjack.deck.map( function(card){
   // array in case of other possible values
   var values = [];
+  var ranks = Ranks;
+
+  // i dont like the following, is there a better way?
+  var rank = card.name.split("_")[0];
+  var rank_index = ranks.findIndex(function(element, index, array){
+    return element == rank;
+  });
   if( rank_index < 10 ){
       values.push(rank_index+1);
   }else{
