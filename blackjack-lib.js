@@ -19,7 +19,7 @@ Cards.prototype = {
     }
     return cards;
   },//yates
-  setup: function(deck_count = 1){
+  new_deck: function(deck_count = 1){
 
     var cards = [];
 
@@ -79,7 +79,7 @@ var Blackjack = Blackjack || {};
 
 Blackjack.cards = new Cards();
 
-Blackjack.deck = Blackjack.cards.setup();
+Blackjack.deck = Blackjack.cards.new_deck();
 
 Blackjack.deck.map( function(card){
   // array in case of other possible values
@@ -95,7 +95,8 @@ Blackjack.deck.map( function(card){
     values.push( 11 );
   }// if ace values includes 11
   card.values = values;
-} );
+  return card;
+});
 
 Blackjack.player = {
   new: function(){
