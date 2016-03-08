@@ -7,19 +7,42 @@ var Cards = function() {
 
 Cards.prototype = {
   suites: [ "diamonds", "clubs", "hearts", "spades"],
-  ranks:  [ "ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king" ]
+  ranks:  [ "ace", 2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king" ],
   yates_shuffle:  function(cards){
-      //cards should be an array
-      for (var count = cards.length; count; count--) {
-          let index = count - 1;
-          let rand = Math.floor(Math.random() * index);
-          let temp = cards[index];
-          cards[index] = cards[rand];
-          cards[rand] = temp;
-      }
-      return cards;
-    }//yates
+    //cards should be an array
+    for (var count = cards.length; count; count--) {
+        let index = count - 1;
+        let rand = Math.floor(Math.random() * index);
+        let temp = cards[index];
+        cards[index] = cards[rand];
+        cards[rand] = temp;
+    }
+    return cards;
+  },//yates
+  setup: function(deck_count = 1){
+
+    var cards = [];
+
+    for (var count = 0; count < deck_count; count++) {
+      for (var suite_index = 0; suite_index < this.suites.length; suite_index++) {
+        var suite = this.suites[suite_index];
+
+        for (var rank_index = 0; rank_index < this.ranks.length; rank_index++) {
+          var rank = this.ranks[rank_index];
+          var card = {};
+
+          card.name = rank + "_of_" + suite;
+          card.img_src = "svg-cards/" + card.name + ".svg";
+
+          cards.push(card);
+        }//for each rank
+      }//for each suite
+    }//for each deck count
+    return cards;
+  }// deck setup
 };
+
+
 
 
 
@@ -54,44 +77,25 @@ Cards.prototype = {
 
 var Blackjack = Blackjack || {};
 
-Blackjack.deck = new Cards;
+Blackjack.cards = new Cards();
 
-Blackjack.deck.setup = function(deck_count = 1){
+Blackjack.deck = Blackjack.cards.setup();
 
-  var cards = [];
+Blackjack.deck.map( function(card){
+  // array in case of other possible values
+  var values = [];
+  if( rank_index < 10 ){
+      values.push(rank_index+1);
+  }else{
+      values.push(10);
+  }
 
-  for (var count = 0; count < deck_count; count++) {
-    for (var suite_index = 0; suite_index < this.deck.suites.length; suite_index++) {
-      var suite = this.deck.suites[suite_index];
-
-      for (var rank_index = 0; rank_index < this.deck.ranks.length; rank_index++) {
-        var rank = this.deck.ranks[rank_index];
-        var card = {};
-
-        card.name = rank + "_of_" + suite;
-        card.img_src = "svg-cards/" + card.name + ".svg";
-
-        // array in case of other possible values
-        var values = [];
-        if( rank_index < 10 ){
-            values.push(rank_index+1);
-        }else{
-            values.push(10);
-        }
-
-        // special 1 or 11 rule
-        if (rank == "ace") {
-          values.push( 11 );
-        }// if ace values includes 11
-
-        card.values = values;
-
-        cards.push(card);
-      }//for each rank
-    }//for each suite
-  }//for each deck count
-  return cards;
-};// deck setup
+  // special 1 or 11 rule
+  if (rank == "ace") {
+    values.push( 11 );
+  }// if ace values includes 11
+  card.values = values;
+} );
 
 Blackjack.player = {
   new: function(){
