@@ -60,10 +60,13 @@ Cards.prototype = {
 
     var count = 0;
     while (new_cards.length < num_of_cards) {
-      var rand = Math.floor(Math.random() * 2);
-      var flipflop = count % 2; // yeaaaaah maaaattthh!!!!
-
-      if( halves[flipflop].length >= rand ){
+      if( halves[flipflop].length != 0 ){
+        var flipflop = count % 2; // yeaaaaah maaaattthh!!!!
+        var max = 2;
+        if( halves[flipflop].length < max ){
+          max = halves[flipflop].length;
+        }// if the half has less than max cards
+        var rand = Math.floor(Math.random() * max);
         for (var i = rand; i > 0; i--) {
           let card = halves[flipflop].pop();
           new_cards.push(card);
