@@ -42,39 +42,38 @@ Cards.prototype = {
       }//for each suite
     }//for each deck count
     return cards;
-  }// deck setup
+  },// deck setup
+  riffle_shuffle: function(cards){
+    //consider:
+    // http://cs.stackexchange.com/questions/332/in-place-algorithm-for-interleaving-an-array/
+    // http://stackoverflow.com/questions/1777901/array-interleaving-problem
+
+    // temporary array
+    var new_cards = [];
+    var halves = []
+    // split the cards array into two arrays
+    // var num_of_cards = cards.length;
+    var num_of_cards = this.suites.length * this.ranks.length;
+
+    halves.push(cards.splice(0 , Math.floor(num_of_cards / 2)));
+    halves.push(cards);
+
+    var count = 0;
+    while (new_cards.length < num_of_cards) {
+      var rand = Math.floor(Math.random() * 2);
+      var flipflop = count % 2; // yeaaaaah maaaattthh!!!!
+
+      if( halves[flipflop].length >= rand ){
+        for (var i = rand; i > 0; i--) {
+          let card = halves[flipflop].pop();
+          new_cards.push(card);
+        }//for
+      }//if
+      count++;
+  }// riffle shuffle
 };
 
-// http://cs.stackexchange.com/questions/332/in-place-algorithm-for-interleaving-an-array/
-// http://stackoverflow.com/questions/1777901/array-interleaving-problem
-// Blackjack.deck.riffle_shuffle = function(cards = Blackjack.deck.cards, shuffle_count = 1){
-//   // temporary array
-//   var new_cards = [];
-//   var halves = []
-//   // split the cards array into two arrays
-//   // var num_of_cards = cards.length;
-//   var num_of_cards = Blackjack.deck.suites.length * Blackjack.deck.ranks.length * shuffle_count;
-//
-//   halves.push(cards.splice(0 , Math.floor(num_of_cards / 2)));
-//   halves.push(cards);
-//
-//   var count = 0;
-//   while (new_cards.length < num_of_cards) {
-//     var rand = Math.floor(Math.random() * 2);
-//     var flipflop = count % 2; // yeaaaaah maaaattthh!!!!
-//
-//     if( halves[flipflop] !== 0 ){
-//       for (var i = rand; i > 0; i--) {
-//         let card = halves[flipflop].pop();
-//         new_cards.push(card);
-//       }//for
-//     }//if
-//     count++;
-//   }
-//
-//   Blackjack.deck.cards = new_cards;
-//   return Blackjack.deck.cards;
-// };
+
 
 var Blackjack = Blackjack || {};
 
