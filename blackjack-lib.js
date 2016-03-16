@@ -52,9 +52,7 @@ Cards.prototype = {
     var new_cards = [];
     var halves = []
     // split the cards array into two arrays
-    // var num_of_cards = cards.length;
     var num_of_cards = this.suites.length * this.ranks.length;
-
     halves.push(cards.splice(0 , Math.floor(num_of_cards / 2)));
     halves.push(cards);
 
@@ -73,51 +71,61 @@ Cards.prototype = {
         }//for
       }//if
       count++;
-  }// riffle shuffle
+      return new_cards;
+    }// riffle shuffle
 };
 
+var Render = function(){
+  return this;
+};
+Render.prototype = {
 
+};
 
-var Blackjack = Blackjack || {};
+var Blackjack = function(){
+  this.cards = new Cards();
+  this.deck = this.cards.new_deck();
+  this.deck.map( function(card){
+    // array in case of other possible values
+    var values = [];
+    var ranks = Ranks;
 
-Blackjack.cards = new Cards();
+    // i dont like the following, is there a better way?
+    var rank = card.name.split("_")[0];
+    var rank_index = ranks.findIndex(function(element, index, array){
+      return element == rank;
+    });
+    if( rank_index < 10 ){
+        values.push(rank_index+1);
+    }else{
+        values.push(10);
+    }
 
-Blackjack.deck = Blackjack.cards.new_deck();
-
-Blackjack.deck.map( function(card){
-  // array in case of other possible values
-  var values = [];
-  var ranks = Ranks;
-
-  // i dont like the following, is there a better way?
-  var rank = card.name.split("_")[0];
-  var rank_index = ranks.findIndex(function(element, index, array){
-    return element == rank;
+    // special 1 or 11 rule
+    if (rank == "ace") {
+      values.push( 11 );
+    }// if ace values includes 11
+    card.values = values;
+    return card;
   });
-  if( rank_index < 10 ){
-      values.push(rank_index+1);
-  }else{
-      values.push(10);
-  }
-
-  // special 1 or 11 rule
-  if (rank == "ace") {
-    values.push( 11 );
-  }// if ace values includes 11
-  card.values = values;
-  return card;
-});
-
-Blackjack.player = {
-  new: function(){
-    var player = {};
-    return player;
-  }
-};
-
-Blackjack.dealer = {
-  new: function(){
-    var dealer = {};
-    return dealer;
-  }
-};
+  this.player = {
+    new: function(){
+      var player = {
+        hands = [];
+      };
+      return player;
+    },
+    render: new Render();
+  };
+  this.dealer = {
+    new: function(){
+      var dealer = {
+        stand: 16,
+        hand: [];
+      };//used var dealer
+      return dealer;
+    },
+    render: new Render();
+  };
+  return this;
+}

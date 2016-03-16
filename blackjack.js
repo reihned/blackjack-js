@@ -1,1 +1,1 @@
-var Blackjack = Blackjack || {};
+//load this javascript last
