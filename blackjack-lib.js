@@ -75,11 +75,36 @@ Cards.prototype = {
     }// riffle shuffle
 };
 
-var Render = function(){
+var Render = function(element){
+  // expecting an element within the dom to append to
+  // perhaps add a check to determine if the element is valid.
+  this.container = element;
   return this;
 };
 Render.prototype = {
-
+  // renders should not:
+  //  append to elements, it should only return the element
+  //  contain data, all data should be in the javascript object instead
+  // this should refer to the render object
+  card: function(card_data){
+    // create a card element
+    var card_el = document.createElement("img");
+    // image source
+    card_el.src = card_data.img_src;
+    // return card element
+    return card_el;
+  },// render hand
+  hand: function(hand_data){
+    // hand data should be an array
+    // create a hand element
+    var hand_el = document.createElement("div");
+    // append cards to hand;
+    for( var card_data in hand_data ){
+      hand_el.appendChild(this.card(card_data));
+    } // for cards in hand
+    // return hand
+    return hand_el;
+  } // render individual card
 };
 
 var Blackjack = function(){
